@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Tech Talkin 2019/2/1
+
+## Functional CSS
+
+---
+
+# What is functional CSS?
+
+* Functional CSS is the concept of using tiny, single-purpose utility classes instead of writing custom CSS
+
+--
+
+* A number of Functional CSS Frameworks exist to provide extensible utility classes:
+
+    * Tailwind
+    * Tachyons
+    * Basscss
+    * etc.
+
+--
+
+* These are pretty comparable but we're going to focus on Tailwind...
+
+--
+
+* NOTE: FCSS is very controversial. I personally love it but I'm not really trying to convert you, just provide a clear introduction and a fair overview of potential benefits
+
+---
+
+# Tailwind...
+
+> "is a utility-first CSS framework for rapidly building custom user interfaces"
+
+--
+
+* Is *not a UI kit*. It doesn't have a default theme, and there are no built-in UI components
+
+--
+
+* "Has no opinion about how your site should look and doesn't impose design decisions that you have to fight to undo"
+
+--
+
+* Provides highly composable, low-level utility classes that make it easy to build complex user interfaces
+
+--
+
+* Is responsive by default
+
+--
+
+* Is highly customizable
+
+---
+
+# What does this make you think/feel?
+
+```
+<div class="max-w-sm rounded overflow-hidden shadow-lg">
+
+  <img class="w-full" src="https://tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains">
+
+  <div class="px-6 py-4">
+    <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
+    <p class="text-grey-darker text-base">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+    </p>
+  </div>
+
+  <div class="px-6 py-4">
+    <span class="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2">#photography</span>
+    <span class="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2">#travel</span>
+    <span class="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker">#winter</span>
+  </div>
+
+</div>
+```
+
+(write notes)
+
+---
+
+# A couple examples
+
+---
+
+# Common objections:
+
+--
+
+* "isn't this just inline CSS, which is evil?"
+
+--
+
+* "it makes the DOM fugly and hard to read"
+
+--
+
+* "you're coupling your styles too closely to your DOMG!!!"
+
+--
+
+* "won't I end up with like a million styles that I don't need that take up hella space?"
+
+--
+
+* "but what about semantic class names?"
+
+--
+
+* "there is way too much repetition"
+
+--
+
+* "oh great another css framework to have to learn in addition to bootstrap, foundation, semantic-ui, redshelf-ember-ui etc."
+
+--
+
+* "this is an unmaintainable dumpster fire"
+
+--
+
+* "I don't like it. You're a bad man and your heart is dark"
+
+
+---
+
+# "isn't this just inline CSS, which is evil?"
+
+No, it is different from inline CSS in a number of significant ways:
+
+* Inline styles don't respect media queries, which basically rules out responsive design
+* Inline styles aren't limited to pre-defined options (36 shades of orange)
+* Inline styles cause specificity issues, since they trump stylesheets.
+* Inline styles don't support print-specific styles.
+* Inline styles can't address pseudo-elements (such as ::before and ::after)
+* Inline styles can't apply to multiple elements.
+* Utility classes can define, say, .bg-blue once and have it apply to anything
+* Inline styles are a pain to type (longer, uglier)
+
+---
+
+# "it makes the DOM fugly and hard to read"
+
+This is fairly legitimate
+
+--
+
+*however* I would argue that:
+
+* you get used to it pretty quickly
+* there are multiple options for making things still very readable
+    * components (ember or tailwind)
+    * using multi-line tag/attribute definitions
+* this conveys a lot of information that traditional CSS does not
+
+
+---
+
+# "you're coupling your styles too closely to the DOM!!!"
+
+This is partially true, but keep a couple things in mind:
+
+* CSS is already very tightly coupled to the DOM
+* By removing a layer of abstraction you're saving a lot of (arguably unnecessary) work
+
+---
+
+# "won't I end up with like a million styles that I don't need?"
+
+Possibly, yes, but Tailwind allows you to customize exactly what gets generated, meaning it can be as small as you need it to be.
+
+Another important thing about Functional CSS is that your CSS size is pretty much constant whereas "regular" CSS tends to grow overtime.
+
+
+---
+
+# "but what about semantic class names?"
+
+There is nothing stopping you from adding additional class names to your markup. There just won't be CSS attached to those class names.
+
+
+---
+
+# "there is way too much repetition"
+
+Tailwind provides the `@apply` directive which you can use to extract "component classes" e.g.:
+```
+.btn-blue {
+  @apply bg-blue text-white font-bold py-2 px-4 rounded;
+}
+.btn-blue:hover {
+  @apply bg-blue-dark;
+}
+```
+
+--
+
+**However** I would argue that Ember has an even better reusability construct: components!
+
+When using tailwind within Ember I think the general recommendation (see EmberMap) is to use components as your primary reusability mechanism and use tailwind "component classes" sparingly.
+
+---
+
+# "oh great another css framework to have to learn in addition to bootstrap, foundation, semantic-ui, redshelf-ember-ui etc."
+
+There is certainly some validity to this sentiment, but I would argue that picking up Tailwind is much easier than most other UI frameworks for a few reasons:
+
+* "it's not a UI kit" - you're not learning how to use someone else's components or design patterns
+* If you know CSS you're already 90% of the way there
+* In general the class names are intuitive and can be guessed and if not they are easily referenced
+* Experimenting is easy and, dare I say, fun
+
+
+---
+
+# "this is an unmaintainable dumpster fire"
+
+🤷‍♂️this one is harder to argue one way or the other.
+
+The EmberMap gents insist that in their several years of working with Tailwind and Tachyons they have experienced no maintainability issues and in fact it is easier to maintain than traditional CSS, but that's mostly anecdotal...
+
+---
+
+# "I don't like it. You're a bad man and your heart is dark"
+
+`#sorrynotsorry`
+
+---
+
+# Potential Benefits
+
+* You don't have to write any CSS
+
+--
+
+* You don't ever have to think about naming things (this is a lot of work)
+
+--
+
+* You can tell what something looks like by just reading the markup for it
+
+--
+
+* You don't ever have to worry that changing the styles for one thing will break something else
+
+--
+
+* You never have to deal with one instance of a thing needing a slightly different style than the other instances, which can screw up your reusable classes.
+
+--
+
+* Your CSS always stays the same size rather than expanding over time
+
+--
+
+* It's easy to un-apply a style by just removing the class (as opposed to the traditional cascade where you may have to override, adding even more CSS)
+
+---
+
+# Potential Benefits (2)
+
+* You never have "dead CSS"
+
+--
+
+* (unsubstantiated) Rendering performance is supposedly improved
+
+--
+
+* (purely anecdotal) It's fast for development and makes CSS fun again
+
+---
+
+# Ember + Tailwind
+
+* Super easy to get up and running, just install ember-cli-tailwind
+
+--
+
+* Provides all the easy customization integrated with the ember build
+
+--
+
+* Provides a `/tailwind` route which can be used as a live, visual style guide
+
+--
+
+* Ember provides components as a reusability mechanism, prefer Ember components to tailwind components
+
+--
+
+* (Examples of layout and customization...)
+
+
+---
+
+# Notes and thoughts
+
+* Probably best to either go "no utility classes" (current #pltfrm stance) or "full utility classes" (pure Tailwind) as much as possible
+
+--
+
+* It may just not be for you, I personally love it but that doesn't mean you have to
+
+--
+
+* Like any tool, it's won't be right for every job
+
+--
+
+* You can set a prefix for migrating from traditional CSS to Tailwind (or for any other reason)
+
+--
+
+* I personally think the best way to decide what you think about it is to actually try it out
+
+---
+
+# Links and References
+
+https://tailwindcss.com/docs/what-is-tailwind/
+
+https://www.mikecr.it/ramblings/functional-css/
+
+https://github.com/dknutsen/tailwind-demo
+
+https://adamwathan.me/css-utility-classes-and-separation-of-concerns/
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create({
+        highlightLanguage: 'html',
+        highlightStyle: 'hybrid',
+      });
+    </script>
+  </body>
+</html>
