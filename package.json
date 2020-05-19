@@ -46,6 +46,7 @@
     "ember-sandbox": "github:dknutsen/ember-sandbox",
     "ember-source": "~3.7.0",
     "ember-spread": "^7.0.1",
+    "ember-truth-helpers": "^2.1.0",
     "emberx-select": "v4.0.0-beta.2",
     "eslint-plugin-ember": "^5.2.0",
     "loader.js": "^4.7.0",
