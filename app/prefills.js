@@ -23,10 +23,14 @@ as |sizes weights families transforms|}}
     {{/x-select}}
     <button {{action (toggle "italic" this)}} class="p-1 m-2 border border-gray-500 rounded">{{unless this.italic 'not '}}italic</button>
   </div>
-
   <table>
+    <tr>
+      <td class="bg-gray-200"></td>
+      {{#each sizes as |size|}}<td class="bg-gray-200 text-center">{{size}}</td>{{/each}}
+    </tr>
     {{#each weights as |weight|}}
       <tr>
+        <td class="bg-gray-200">{{weight}}</td>
         {{#each sizes as |size|}}
           <td class="p-2">
             <button
@@ -137,22 +141,89 @@ template:
   </table>
 {{/let}}`
 }, {
-index: 11,
-name: 'card',
+index: 10,
+name: 'width/height',
 template:
-`<div class="max-w-sm rounded overflow-hidden shadow-lg">
-  <img class="w-full" src="https://v0.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains">
-  <div class="px-6 py-4">
-    <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-    <p class="text-gray-700 text-base">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-    </p>
+`<div class="w-full h-full p-8">
+  <h1 class="text-3xl mb-8">Width & Height</h1>
+  <div class="flex flex-col">
+    {{#let "h-12 text-xl text-white flex items-center justify-center" as |formatting|}}
+      <h2 class="text-2xl">Fixed</h2>
+      <div class="w-full flex flex-col mb-16">
+        <div class="w-64 bg-red-600 {{formatting}}">w-64 (16rem)</div>
+        <div class="w-56 bg-orange-600 {{formatting}}">w-56 (14rem)</div>
+        <div class="w-48 bg-yellow-600 {{formatting}}">w-48 (12rem)</div>
+        <div class="h-8 text-xl ">...</div>
+        <div class="w-4 bg-blue-600 {{formatting}}"></div>
+      </div>
+
+      <h2 class="text-2xl">Fluid</h2>
+      <div class="w-full flex flex-col">
+        <div class="w-1/2 bg-red-600 {{formatting}}">w-1/2</div>
+        <div class="w-1/3 bg-orange-600 {{formatting}}">w-1/3</div>
+        <div class="w-1/4 bg-yellow-600 {{formatting}}">w-1/4</div>
+        <div class="w-1/5 bg-green-600 {{formatting}}">w-1/5</div>
+        <div class="w-1/6 bg-blue-600 {{formatting}}">w-1/6</div>
+        <div class="w-1/12 bg-purple-600 {{formatting}}">w-1/12</div>
+      </div>
+    {{/let}}
   </div>
-  <div class="px-6 py-4">
-    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#photography</span>
-    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#travel</span>
-    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">#winter</span>
+</div>`
+}, {
+index: 11,
+name: 'padding & margin',
+template:
+`<div class="w-full h-full p-8">
+  <h1 class="text-3xl mb-8">Padding & Margin</h1>
+  <div class="flex flex-col">
+    <h2 class="text-2xl">Uniform</h2>
+    <div class="flex flex-row">
+      Choose size:
+      {{#x-select value=this.size onChange=(action (mut this.size)) as |xs|}}
+        {{#each (array "6" "8" "10" "12" "16" "20" "24") as |pmsize|}}
+          {{#xs.option value=pmsize}}{{pmsize}}{{/xs.option}}
+        {{/each}}
+      {{/x-select}}
+    </div>
+    <div class="flex flex-row items-center justify-center">
+      <div class="bg-blue-600 text-white w-{{mult 4 this.size}} h-{{mult 4 this.size}} p-{{this.size}} m-{{this.size}} flex items-center justify-center">w-48 h-32</div>
+
+      <div class="bg-orange-300 relative">
+        <span class="absolute">m-{{this.size}} ({{div this.size 4}}rem)</span>
+        <div class="bg-blue-600 text-blue-600 hover:bg-green-300 hover:text-black m-{{this.size}} relative">
+        <span class="absolute">p-{{this.size}} ({{div this.size 4}}rem)</span>
+          <div class="p-{{this.size}}">
+            <div class="bg-blue-600 text-white w-{{mult 2 this.size}} h-{{mult 2 this.size}} flex items-center justify-center"></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-`}
-];
+</div>`
+}, {
+index: 21,
+name: 'components - image card',
+template:
+`{{#let (hash
+  title="The Coldest Sunset"
+  caption="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil."
+  img="https://v0.tailwindcss.com/img/card-top.jpg"
+  imgAlt="Sunset in the mountains"
+  tags=(array "photography" "travel" "winter")
+) as |args|}}
+
+  <div class="max-w-sm rounded overflow-hidden shadow-lg">
+    <img class="w-full" src={{args.img}} alt={{args.imgAlt}}>
+    <div class="px-6 py-4">
+      <div class="font-bold text-xl mb-2">{{args.title}}</div>
+      <p class="text-gray-700 text-base">{{args.caption}}</p>
+    </div>
+    <div class="px-6 py-4">
+      {{#each args.tags as |tag|}}
+        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#{{tag}}</span>
+      {{/each}}
+    </div>
+  </div>
+
+{{/let}}`
+}];
