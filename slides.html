@@ -153,32 +153,35 @@ class: center, middle
 
 # "isn't this just inline CSS, which is evil?"
 
-No, it is different from inline CSS in a number of significant ways:
+No, it is different from inline CSS in a number of significant ways.
 
-* Inline styles don't respect media queries, which basically rules out responsive design
-* Inline styles aren't limited to pre-defined options (36 shades of orange)
-* Inline styles cause specificity issues, since they trump stylesheets.
-* Inline styles don't support print-specific styles.
-* Inline styles can't address pseudo-elements (such as ::before and ::after)
-* Inline styles can't apply to multiple elements.
-* Utility classes can define, say, .bg-blue once and have it apply to anything
-* Inline styles are a pain to type (longer, uglier)
+
+Inline styles:
+
+* don't respect media queries, which basically rules out responsive design
+* aren't limited to pre-defined options (36 shades of orange)
+* cause specificity issues, since they trump stylesheets
+* don't support print-specific styles
+* can't address pseudo-elements (such as ::before and ::after)
+* aren't reusable
+* are a pain to type (longer, uglier)
 
 ---
 
 # "it makes the DOM ugly and hard to read"
 
-This is fairly legitimate
+This is probably the most legitimate objection
 
 --
 
 *however* I would argue that:
 
-* you get used to it pretty quickly
-* there are multiple options for making things still very readable
+* this conveys a lot of information that traditional CSS does not
+* there are multiple options for making things readable
     * components (ember or tailwind)
     * using multi-line tag/attribute definitions
-* this conveys a lot of information that traditional CSS does not
+    * other abstractions...
+* you get used to it pretty quickly
 
 
 ---
@@ -194,10 +197,23 @@ This is partially true, but keep a couple things in mind:
 
 # "won't I end up with like a million styles that I don't need?"
 
-Possibly, yes, but Tailwind allows you to customize exactly what gets generated, meaning it can be as small as you need it to be.
+No.
 
-Another important thing about Functional CSS is that your CSS size is pretty much constant whereas "regular" CSS tends to grow overtime.
+- Tailwind allows you to customize exactly what gets generated
+???
+You can customize exactly what classes get generated, meaning it can be as small as you need it to be. Which is also great for constraining your styleguide and choices
 
+--
+
+- Even better: PurgeCSS
+???
+But even better, it's easy to wire up PurgeCSS which removes unused styles. Your tailwind config can be as large as you want with no ill effect
+
+--
+
+- Functional CSS tends to grow at a slow rate, and is essentially upper bounded
+???
+Because the upper bound is essentially the size of your tailwind config and you tend to reuse a lot of classes rather than adding new ones
 
 ---
 
@@ -230,7 +246,7 @@ When using tailwind within Ember I think the general recommendation (see EmberMa
 
 # "oh great another css framework to have to learn in addition to bootstrap, foundation, semantic-ui, redshelf-ember-ui etc."
 
-There is certainly some validity to this sentiment, but I would argue that picking up Tailwind is much easier than most other UI frameworks for a few reasons:
+Picking up Tailwind is much easier than most other UI frameworks for a few reasons:
 
 * "it's not a UI kit" - you're not learning how to use someone else's components or design patterns
 * If you know CSS you're already 90% of the way there
@@ -244,7 +260,14 @@ There is certainly some validity to this sentiment, but I would argue that picki
 
 🤷‍♂️this one is harder to argue one way or the other.
 
+* EmberMap anecdote
+???
 The EmberMap gents insist that in their several years of working with Tailwind and Tachyons they have experienced no maintainability issues and in fact it is easier to maintain than traditional CSS, but that's mostly anecdotal...
+
+--
+* Our CSS
+???
+In our CSS we run into a lot of issues with complex hierarchies of styles and markup making it difficult to change markup without big CSS changes, and making CSS changes is hard because it could break other places or be duplicated. Essentially our CSS holds our code hostage.
 
 ---
 
