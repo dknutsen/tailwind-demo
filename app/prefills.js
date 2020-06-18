@@ -256,6 +256,62 @@ template:
   </div>
 </div>`
 }, {
+index: 12,
+name: 'flexbox grid',
+template:
+`<div class="flex flex-col items-center w-full h-full p-8">
+  <div class="text-left w-full mb-8">
+    <h1 class="font-bold text-3xl">Flexbox Grid</h1>
+    <p>Making a fluid grid with flexbox and fractional widths is easy</p>
+  </div>
+
+  {{#each-in (hash
+    1="w-full"
+    2="w-1/2"
+    3="w-1/3"
+    4="w-1/4"
+    5="w-1/5"
+    6="w-1/6"
+    12="w-1/12"
+  ) as |number size|}}
+    <div class="w-full flex mb-4">
+      {{#each (range 0 number) as |num|}}
+        <div class="
+          {{size}}
+          {{if (mod num 2) 'bg-gray-300' 'bg-gray-500'}}
+          h-12 p-2 text-center
+        ">{{size}}</div>
+      {{/each}}
+    </div>
+  {{/each-in}}
+
+</div>`
+}, {
+index: 13,
+name: 'css grid',
+template:
+`<div class="flex flex-col items-center w-full h-full">
+  <div class="text-left w-full p-8">
+    <h1 class="font-bold text-3xl">CSS Grid</h1>
+    <p>Try changing grid columns and container size</p>
+  </div>
+
+
+  <div
+    class="
+      bg-gray-300
+      grid grid-cols-3 gap-4
+      w-64 h-64
+    "
+  >
+
+    {{#each (array 1 2 3 4 5 6 7 8 9 10 11 12) as |number|}}
+      <div class="bg-gray-600 text-white text-center">{{number}}</div>
+    {{/each}}
+
+  </div>
+</div>`
+}, {
 index: 14,
 name: 'transforms',
 template:
