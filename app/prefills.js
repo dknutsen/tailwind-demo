@@ -26,7 +26,7 @@ template:
 as |sizes weights families transforms|}}
 <div class="flex flex-col">
   <div class="flex flex-row bg-gray-200">
-    {{#x-select value=this.family onChange=(action (mut this.family)) as |xs|}}
+    {{#x-select value=this.fontFamily onChange=(action (mut this.fontFamily)) as |xs|}}
       {{#each families as |family|}}{{#xs.option value=family}}{{family}}{{/xs.option}}{{/each}}
     {{/x-select}}
     {{#x-select value=this.transform onChange=(action (mut this.transform)) as |xs|}}
@@ -45,12 +45,20 @@ as |sizes weights families transforms|}}
         <td class="bg-gray-200">{{weight}}</td>
         {{#each sizes as |size|}}
           <td class="p-2">
+
             <button
-              class="font-{{weight}} font-{{family}} text-{{size}} {{transform}} {{if this.italic 'italic'}}"
-              {{action (mut this.chosen) (concat "font-" family " font-" weight " text-" size " " transform (if this.italic ' italic'))}}
+              class="
+                font-{{weight}}
+                font-{{this.fontFamily}}
+                text-{{size}}
+                {{transform}}
+                {{if this.italic 'italic'}}
+              "
+              {{action (mut this.chosen) (concat "font-" this.fontFamily " font-" weight " text-" size " " transform (if this.italic ' italic'))}}
             >
               {{size}} {{weight}}
             </button>
+
           </td>
         {{/each}}
       </tr>
@@ -68,9 +76,19 @@ template:
   {{#each (array "gray" "red" "orange" "yellow" "green" "teal" "blue" "indigo" "purple" "pink") as |color|}}
     <div class="flex flex-row">
       {{#each (array 1 2 3 4 5 6 7 8 9) as |index|}}
-        <div class="hover:bg-{{color}}-500 hover:text-white  bg-{{color}}-{{index}}00 {{if (gt index 4) 'text-white'}} w-24 h-12 p-1 flex items-center justify-center">
+
+        <div
+          class="
+            bg-{{color}}-{{index}}00
+            {{if (gt index 4) 'text-white'}}
+            hover:bg-{{color}}-500
+            hover:text-white
+            w-24 h-12 p-1 flex items-center justify-center
+          "
+        >
           {{color}} {{index}}00
         </div>
+
       {{/each}}
     </div>
   {{/each}}
@@ -89,6 +107,7 @@ template:
   <table>
     <thead><tr><th></th><th>default</th><th>primary</th><th>success</th><th>warning</th><th>danger</th></tr></thead>
     <tbody>
+
       <tr>
         <td>Badge</td>
         {{#each-in themes as |name theme|}}
@@ -99,6 +118,7 @@ template:
           </td>
         {{/each-in}}
       </tr>
+
     </tbody>
   </table>
 {{/let}}`
@@ -234,6 +254,73 @@ template:
       </div>
     </div>
   </div>
+</div>`
+}, {
+index: 14,
+name: 'transforms',
+template:
+`<div class="flex flex-col w-full h-full items-around justify-around">
+  <div class="flex flex-row w-full items-around justify-around">
+    <div
+      class="
+        w-48 h-48 text-white
+        bg-blue-500
+        transform hover:translate-y-20
+      "
+    ></div>
+
+    <div
+      class="
+        w-48 h-48 text-white
+        bg-blue-500
+        transform hover:scale-150
+      "
+    ></div>
+  </div>
+
+  <div class="flex flex-row w-full items-around justify-around">
+    <div
+      class="
+        w-48 h-48 text-white
+        bg-blue-500
+        transform hover:rotate-45
+      "
+    ></div>
+
+    <div
+      class="
+        w-48 h-48 text-white
+        bg-blue-500
+        transform hover:skew-y-12
+      "
+    ></div>
+  </div>
+</div>`
+}, {
+index: 15,
+name: 'transitions',
+template:
+`<div class="flex flex-col">
+<h1 class="text-2xl mb-8">Obnoxious download button</h1>
+<div>
+
+<button
+  class="
+    px-4 py-2 text-white
+    bg-blue-500 hover:bg-red-500
+    transition
+      duration-1000
+      ease-in-out
+    transform
+      hover:translate-y-20
+      hover:scale-150
+      hover:rotate-90
+  "
+>
+  Download {{fa-icon icon="arrow-alt-circle-right"}}
+</button>
+
+</div>
 </div>`
 }, {
 index: 21,
