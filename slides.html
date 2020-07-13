@@ -215,7 +215,9 @@ Because the upper bound is essentially the size of your tailwind config and you 
 
 # "but what about semantic class names?"
 
-There is nothing stopping you from adding additional class names to your markup. There just won't be CSS attached to those class names.
+There is nothing stopping you from adding additional class names to your markup.
+
+There just won't necessarily be CSS attached to those class names.
 
 
 ---
@@ -239,6 +241,7 @@ Tailwind provides the `@apply` directive which you can use to extract "component
 * use components as your primary reusability mechanism
 * use tailwind "component classes" sparingly.
 
+If you find yourself repeating the same classes across a number of different components, it might be a good spot for a tailwind "component"
 ---
 
 # "oh great another css framework to have to learn in addition to bootstrap, foundation, semantic-ui, art19-ui etc."
@@ -261,13 +264,19 @@ Picking up Tailwind is much easier than most other UI frameworks for a few reaso
 * EmberMap anecdote
 ???
 The EmberMap gents insist that in their several years of working with Tailwind and Tachyons they have experienced no maintainability issues and in fact it is easier to maintain than traditional CSS, but that's mostly anecdotal...
-
 --
 
 * Our CSS
 ???
 In our CSS we run into a lot of issues with complex hierarchies of styles and markup making it difficult to change markup without big CSS changes, and making CSS changes is hard because it could break other places or be duplicated. Essentially our CSS sometimes holds our code hostage.
+--
 
+
+I would actually argue that it is *more* maintainable than traditional CSS:
+
+* No hostage situations
+* No dead CSS
+* You're always using the same constrained style set
 ---
 
 # "I don't like it. You're a bad man and your heart is dark"
@@ -310,7 +319,7 @@ In our CSS we run into a lot of issues with complex hierarchies of styles and ma
 * (unsubstantiated) Rendering performance is supposedly improved
 --
 
-* (purely anecdotal) It's fast for development and makes CSS fun again
+* (anecdotal) It's very fast for prototyping and development and makes CSS fun again
 ---
 
 # Ember + Tailwind
