@@ -4,15 +4,21 @@
     <title>Functional CSS</title>
     <meta charset="utf-8">
     <style>
-      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Roboto+Condensed);
       @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
       @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
 
       body { font-family: 'Droid Serif'; }
       h1, h2, h3 {
-        font-family: 'Yanone Kaffeesatz';
+        font-family: 'Roboto Condensed';
         font-weight: normal;
       }
+      .remark-slide h1 {
+        font-size: 48px;
+      }
+      li { padding-bottom: 16px; }
+      li p { margin: 0.5rem; }
+      li ul li { padding-bottom: 6px; }
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
     </style>
   </head>
@@ -21,16 +27,16 @@
 
 class: center, middle
 
-# Tech Talkin 2019/2/1
 
-## Functional CSS
+# Functional CSS: Tailwind
+
+## 2020/07/14
 
 ---
 
 # What is functional CSS?
 
 * Functional CSS is the concept of using tiny, single-purpose utility classes instead of writing custom CSS
-
 --
 
 * A number of Functional CSS Frameworks exist to provide extensible utility classes:
@@ -39,40 +45,37 @@ class: center, middle
     * Tachyons
     * Basscss
     * etc.
-
 --
 
 * These are pretty comparable but we're going to focus on Tailwind...
-
 --
 
-* NOTE: FCSS is very controversial. I personally love it but I'm not really trying to convert you, just provide a clear introduction and a fair overview of potential benefits
-
+* NOTE: Functional CSS is controversial. I'm not really trying to convert anyone, just provide a clear introduction and a fair overview of potential benefits
 ---
 
 # Tailwind...
 
-> "is a utility-first CSS framework for rapidly building custom user interfaces"
-
+* "is a utility-first CSS framework for rapidly building custom user interfaces"
 --
 
 * Is *not a UI kit*. It doesn't have a default theme, and there are no built-in UI components
-
 --
 
 * "Has no opinion about how your site should look and doesn't impose design decisions that you have to fight to undo"
-
 --
 
 * Provides highly composable, low-level utility classes that make it easy to build complex user interfaces
-
 --
 
 * Is responsive by default
-
 --
 
 * Is highly customizable
+--
+
+
+Let's see it in action...
+
 
 ---
 
@@ -91,19 +94,19 @@ class: center, middle
   </div>
 
   <div class="px-6 py-4">
-    <span class="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2">#photography</span>
-    <span class="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2">#travel</span>
-    <span class="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker">#winter</span>
+    <span class="inline-block bg-grey-200 rounded-full px-3 py-1 text-sm font-semibold text-grey-700 mr-2">
+      #photography
+    </span>
+    <span class="inline-block bg-grey-200 rounded-full px-3 py-1 text-sm font-semibold text-grey-700 mr-2">
+      #travel
+    </span>
+    <span class="inline-block bg-grey-200 rounded-full px-3 py-1 text-sm font-semibold text-grey-700">
+      #winter
+    </span>
   </div>
 
 </div>
 ```
-
-(write notes)
-
----
-
-# A couple examples
 
 ---
 
@@ -112,35 +115,27 @@ class: center, middle
 --
 
 * "isn't this just inline CSS, which is evil?"
-
 --
 
-* "it makes the DOM fugly and hard to read"
-
+* "it makes the DOM ugly and hard to read"
 --
 
 * "you're coupling your styles too closely to your DOMG!!!"
-
 --
 
 * "won't I end up with like a million styles that I don't need that take up hella space?"
-
 --
 
 * "but what about semantic class names?"
-
 --
 
 * "there is way too much repetition"
-
 --
 
-* "oh great another css framework to have to learn in addition to bootstrap, foundation, semantic-ui, redshelf-ember-ui etc."
-
+* "oh great another css framework to have to learn in addition to bootstrap, foundation, semantic-ui, art19-ui etc."
 --
 
 * "this is an unmaintainable dumpster fire"
-
 --
 
 * "I don't like it. You're a bad man and your heart is dark"
@@ -148,34 +143,41 @@ class: center, middle
 
 ---
 
-# "isn't this just inline CSS, which is evil?"
-
-No, it is different from inline CSS in a number of significant ways:
-
-* Inline styles don't respect media queries, which basically rules out responsive design
-* Inline styles aren't limited to pre-defined options (36 shades of orange)
-* Inline styles cause specificity issues, since they trump stylesheets.
-* Inline styles don't support print-specific styles.
-* Inline styles can't address pseudo-elements (such as ::before and ::after)
-* Inline styles can't apply to multiple elements.
-* Utility classes can define, say, .bg-blue once and have it apply to anything
-* Inline styles are a pain to type (longer, uglier)
+# Demo time!
 
 ---
 
-# "it makes the DOM fugly and hard to read"
+# "isn't this just inline CSS, which is evil?"
 
-This is fairly legitimate
+No, it is different from inline CSS in a number of significant ways.
+
+
+Inline styles:
+
+* don't respect media queries, which basically rules out responsive design
+* aren't limited to pre-defined options (36 shades of orange)
+* cause specificity issues, since they trump stylesheets
+* don't support print-specific styles
+* can't address pseudo-elements (such as ::before and ::after)
+* aren't reusable
+* are a pain to type (longer, uglier)
+
+---
+
+# "it makes the DOM ugly, hard to read"
+
+This is probably the most legitimate objection
 
 --
 
 *however* I would argue that:
 
-* you get used to it pretty quickly
-* there are multiple options for making things still very readable
+* this conveys a lot of information that traditional CSS does not
+* there are multiple options for making things readable
     * components (ember or tailwind)
     * using multi-line tag/attribute definitions
-* this conveys a lot of information that traditional CSS does not
+    * other abstractions...
+* you get used to it pretty quickly
 
 
 ---
@@ -191,16 +193,31 @@ This is partially true, but keep a couple things in mind:
 
 # "won't I end up with like a million styles that I don't need?"
 
-Possibly, yes, but Tailwind allows you to customize exactly what gets generated, meaning it can be as small as you need it to be.
+No.
 
-Another important thing about Functional CSS is that your CSS size is pretty much constant whereas "regular" CSS tends to grow overtime.
+- Tailwind allows you to customize exactly what gets generated
+???
+You can customize exactly what classes get generated, meaning it can be as small as you need it to be. Which is also great for constraining your styleguide and choices
 
+--
+
+- Even better: PurgeCSS
+???
+But even better, it's easy to wire up PurgeCSS which removes unused styles. Your tailwind config can be as large as you want with no ill effect
+
+--
+
+- Functional CSS tends to grow at a slow rate, and is essentially upper bounded
+???
+Because the upper bound is essentially the size of your tailwind config and you tend to reuse a lot of classes rather than adding new ones
 
 ---
 
 # "but what about semantic class names?"
 
-There is nothing stopping you from adding additional class names to your markup. There just won't be CSS attached to those class names.
+There is nothing stopping you from adding additional class names to your markup.
+
+There just won't necessarily be CSS attached to those class names.
 
 
 ---
@@ -221,17 +238,20 @@ Tailwind provides the `@apply` directive which you can use to extract "component
 
 **However** I would argue that Ember has an even better reusability construct: components!
 
-When using tailwind within Ember I think the general recommendation (see EmberMap) is to use components as your primary reusability mechanism and use tailwind "component classes" sparingly.
+* use components as your primary reusability mechanism
+* use tailwind "component classes" sparingly.
 
+If you find yourself repeating the same classes across a number of different components, it might be a good spot for a tailwind "component"
 ---
 
-# "oh great another css framework to have to learn in addition to bootstrap, foundation, semantic-ui, redshelf-ember-ui etc."
+# "oh great another css framework to have to learn in addition to bootstrap, foundation, semantic-ui, art19-ui etc."
 
-There is certainly some validity to this sentiment, but I would argue that picking up Tailwind is much easier than most other UI frameworks for a few reasons:
+Picking up Tailwind is much easier than most other UI frameworks for a few reasons:
 
 * "it's not a UI kit" - you're not learning how to use someone else's components or design patterns
 * If you know CSS you're already 90% of the way there
 * In general the class names are intuitive and can be guessed and if not they are easily referenced
+* Tailwind is very refined and smooths the rough edges of CSS with sensible resets and constraints
 * Experimenting is easy and, dare I say, fun
 
 
@@ -241,8 +261,22 @@ There is certainly some validity to this sentiment, but I would argue that picki
 
 🤷‍♂️this one is harder to argue one way or the other.
 
+* EmberMap anecdote
+???
 The EmberMap gents insist that in their several years of working with Tailwind and Tachyons they have experienced no maintainability issues and in fact it is easier to maintain than traditional CSS, but that's mostly anecdotal...
+--
 
+* Our CSS
+???
+In our CSS we run into a lot of issues with complex hierarchies of styles and markup making it difficult to change markup without big CSS changes, and making CSS changes is hard because it could break other places or be duplicated. Essentially our CSS sometimes holds our code hostage.
+--
+
+
+I would actually argue that it is *more* maintainable than traditional CSS:
+
+* No hostage situations
+* No dead CSS
+* You're always using the same constrained style set
 ---
 
 # "I don't like it. You're a bad man and your heart is dark"
@@ -254,94 +288,64 @@ The EmberMap gents insist that in their several years of working with Tailwind a
 # Potential Benefits
 
 * You don't have to write any CSS
-
 --
 
-* You don't ever have to think about naming things (this is a lot of work)
-
+* You don't have to do nearly as much naming (this is a lot of work)
 --
 
 * You can tell what something looks like by just reading the markup for it
-
 --
 
 * You don't ever have to worry that changing the styles for one thing will break something else
-
 --
 
-* You never have to deal with one instance of a thing needing a slightly different style than the other instances, which can screw up your reusable classes.
-
+* You never have to deal with one instance of a thing needing a slightly different style than the other instances.
 --
 
-* Your CSS always stays the same size rather than expanding over time
-
+* Your CSS grows logarithmically rather than linearly or exponentially over time
 --
 
 * It's easy to un-apply a style by just removing the class (as opposed to the traditional cascade where you may have to override, adding even more CSS)
-
 ---
 
 # Potential Benefits (2)
 
 * You are constrained to a specific, recognizable set of sizes, colors, etc. out of the box
-
 --
 
 * You don't end up with "dead CSS"
-
 --
 
 * (unsubstantiated) Rendering performance is supposedly improved
-
 --
 
-* (purely anecdotal) It's fast for development and makes CSS fun again
-
+* (anecdotal) It's very fast for prototyping and development and makes CSS fun again
 ---
 
 # Ember + Tailwind
 
-* Super easy to get up and running, just install ember-cli-tailwind
-
+* Easy to get up and running with ember-cli-postcss
 --
 
-* Provides all the easy customization integrated with the ember build
-
+* Adding purgecss plugin keeps the generated CSS tiny
 --
 
-* Provides a `/tailwind` route which can be used as a live, visual style guide
-
---
-
-* Ember provides components as a reusability mechanism, prefer Ember components to tailwind components
-
---
-
-* (Examples of layout and customization...)
-
+* Easy customization of tailwind config, addition of tailwind "components", and custom "traditional" CSS
 
 ---
 
 # Notes and thoughts
 
-* Probably best to either go "no utility classes" (current #pltfrm stance) or "full utility classes" (pure Tailwind) as much as possible
-
---
-
 * It may just not be for you, I personally love it but that doesn't mean you have to
-
 --
 
 * Like any tool, it's won't be right for every job
-
 --
 
 * You can set a prefix for migrating from traditional CSS to Tailwind (or for any other reason)
-
 --
 
-* I personally think the best way to decide what you think about it is to actually try it out
-
+* I personally think the best (and only) way to decide what you think about it is to actually try it out
 ---
 
 # Links and References

@@ -1,9 +1,22 @@
 <div class="flex h-full">
-  <div class="flex-1 border-2 border-grey border-solid">
-    {{textarea value=templateContent class="w-full h-full"}}
+  <div class="flex-1 border-2 border-grey border-solid flex flex-col">
+    <div class="flex items-center">
+      <label class="mr-2">Template:</label>
+      <XSelect
+        class="flex-1 h-8 border-gray-400 bg-gray-300"
+        @value={{this.prefill}}
+        @onChange={{action "prefillSelected"}}
+        as |xs|
+      >
+        {{#each this.prefills as |prefill|}}
+          <xs.option @value={{prefill.index}}>{{prefill.name}}</xs.option>
+        {{/each}}
+      </XSelect>
+    </div>
+    {{textarea value=this.templateContent class="w-full flex-1 font-mono border-grey-400"}}
   </div>
   <div class="flex-1 border-2 border-grey border-solid">
-    {{sandbox-freeform templateContent=templateContent class="w-full h-full flex items-center justify-center"}}
+    {{sandbox-freeform templateContent=this.templateContent class="w-full h-full flex items-center justify-center"}}
   </div>
 </div>
 
